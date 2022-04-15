@@ -52,9 +52,9 @@ GROUP BY ProductID,Shelf;
 
 --10.
 SELECT ProductID, Shelf, AVG(Quantity) AS QtyAvg
-	FROM Production.ProductInventory
-	WHERE Shelf != 'N/A'
-	GROUP BY ProductID, Shelf;
+FROM Production.ProductInventory
+WHERE Shelf != 'N/A'
+GROUP BY ProductID, Shelf;
 
 --11.	
 SELECT Color, Class, Count(*) AS TheCount, AVG(ListPrice) AS AvgPrice
@@ -64,18 +64,18 @@ GROUP BY Color, Class;
 
 --12.	  
 SELECT c.Name AS Country, s.Name AS Province 
-	FROM Person.CountryRegion c 
-	JOIN
-	Person.StateProvince s
-	ON c.CountryRegionCode = s.CountryRegionCode;
+FROM Person.CountryRegion c 
+JOIN
+Person.StateProvince s
+ON c.CountryRegionCode = s.CountryRegionCode;
 
 --13.
 SELECT c.Name AS Country, s.Name AS Province 
-	FROM Person.CountryRegion c 
-	JOIN
-	Person.StateProvince s
-	ON c.CountryRegionCode = s.CountryRegionCode
-	WHERE c.Name NOT IN ('Germany', 'Canada');	
+FROM Person.CountryRegion c 
+JOIN
+Person.StateProvince s
+ON c.CountryRegionCode = s.CountryRegionCode
+WHERE c.Name NOT IN ('Germany', 'Canada');	
 
 --14.
 USE Northwind
@@ -93,24 +93,23 @@ WHERE DATEDIFF(year, o.OrderDate, GETDATE()) < 25;
 
 --15.	
 SELECT TOP 5 o.ShipPostalCode, SUM(od.Quantity) as qty FROM 
-	Orders o
-	JOIN
-	[Order Details] od
-	ON o.OrderID =  od.OrderID
-	WHERE o.ShipPostalCode IS NOT NULL
-	GROUP BY ShipPostalCode
-	ORDER BY qty DESC;
+Orders o
+JOIN
+[Order Details] od
+ON o.OrderID =  od.OrderID
+WHERE o.ShipPostalCode IS NOT NULL
+GROUP BY ShipPostalCode
+ORDER BY qty DESC;
 
 --16.	
-SELECT TOP 5 o.ShipPostalCode, SUM(od.Quantity) Qty FROM 
-	Orders o
-	JOIN
-	[Order Details] od
-	ON o.OrderID =  od.OrderID
-	WHERE o.ShipPostalCode IS NOT NULL 
-		AND DATEDIFF(year, o.OrderDate, GETDATE())< 25
-	GROUP BY ShipPostalCode
-	ORDER BY Qty DESC;
+SELECT TOP 5 o.ShipPostalCode, SUM(od.Quantity) Qty FROM Orders o
+JOIN
+[Order Details] od
+ON o.OrderID =  od.OrderID
+WHERE o.ShipPostalCode IS NOT NULL 
+	AND DATEDIFF(year, o.OrderDate, GETDATE())< 25
+GROUP BY ShipPostalCode
+ORDER BY Qty DESC;
 
 --17.
 SELECT City, count(customerID) as NumOfCustomer
@@ -126,12 +125,11 @@ HAVING  count(customerID)>2
 
 
 --19.
-SELECT DISTINCT c.CustomerID, c.CompanyName, c.ContactName FROM 
-	Orders o
-	INNER JOIN 
-	Customers c
-	ON o.CustomerID = c.CustomerID
-	WHERE OrderDate > '1998-1-1';
+SELECT DISTINCT c.CustomerID, c.CompanyName, c.ContactName FROM Orders o
+INNER JOIN 
+Customers c
+ON o.CustomerID = c.CustomerID
+WHERE OrderDate > '1998-1-1';
 
 --20.
 SELECT c.ContactName, MAX(o.OrderDate) AS MostRecentOrderDate
@@ -140,11 +138,9 @@ GROUP BY c.ContactName
 
 --21.
 SELECT c.CustomerID, c.CompanyName, c.ContactName, 
-SUM(od.Quantity) Qty FROM 
-Customers c 
+SUM(od.Quantity) Qty FROM Customers c 
 LEFT JOIN 
-Orders o 
-ON c.CustomerID = o.CustomerID
+Orders o ON c.CustomerID = o.CustomerID
 LEFT JOIN 
 [Order Details] od
 ON o.OrderID = od.OrderID
@@ -153,14 +149,10 @@ ORDER BY Qty;
 
 --22
 SELECT c.CustomerID,
-SUM(od.Quantity) AS Qty FROM 
-Customers c 
-LEFT JOIN 
-Orders o 
+SUM(od.Quantity) AS Qty FROM Customers c LEFT JOIN Orders o 
 ON c.CustomerID = o.CustomerID
 LEFT JOIN 
-[Order Details] od
-ON o.OrderID = od.OrderID
+[Order Details] od ON o.OrderID = od.OrderID
 GROUP BY c.CustomerID
 HAVING SUM(od.Quantity) > 100
 ORDER BY Qty;
