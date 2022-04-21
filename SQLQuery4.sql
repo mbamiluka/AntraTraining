@@ -1,29 +1,29 @@
 
 --1
-CREATE VIEW View_Product_Order_Luka
+CREATE VIEW view_product_order_Luka
 AS
-SELECT ProductName,SUM(Quantity) As TotalOrderQty FROM [Order Details] OD JOIN Products P ON P.ProductID = OD.ProductID
+SELECT ProductName,SUM(Quantity) OrderedQty FROM [Order Details] OD JOIN Products P ON P.ProductID = OD.ProductID
 GROUP BY ProductName
 
 --2
 
-ALTER PROC sp_Product_Order_QuantityLuka
+ALTER PROC sp_product_order_quantity_Luka
 @ProductID INT,
-@TotalOrderQty INT OUT
+@OrderedQty INT OUT
 AS
 BEGIN
-SELECT @TotalOrderQty = SUM(Quantity)  FROM [Order Details] OD JOIN Products P ON P.ProductID = OD.ProductID
+SELECT @OrderedQty = SUM(Quantity)  FROM [Order Details] OD JOIN Products P ON P.ProductID = OD.ProductID
 WHERE P.ProductID = @ProductID
 END
 
 
 
 DECLARE @Tot INT
-EXEC sp_Product_Order_QuantityLuka 11,@Tot OUT
+EXEC sp_product_order_quantity_Luka 11,@Tot OUT
 PRINT @Tot 
 
 --3
-ALTER PROC sp_Product_Order_CityLuka
+ALTER PROC sp_product_order_city_Luka
 @ProductName NVARCHAR(50)
 AS
 BEGIN
@@ -34,52 +34,52 @@ ORDER BY SUM(Quantity) DESC
 END
 
 
-EXEC sp_Product_Order_CityLuka 'Queso Cabrales'
+EXEC sp_Product_Order_City_Luka 'Queso Cabrales'
 
 
 --4
-CREATE TABLE PeopleLuka
+CREATE TABLE people_Luka
 (
 id int ,
 name nvarchar(100),
 city int
 )
 
-create table CityLuka
+create table city_Luka
 (
 id int,
 city nvarchar(100)
 )
 BEGIN TRAN 
-insert into CityLuka values(1,'Seattle')
-insert into CityLuka values(2,'Green Bay')
+insert into city_Luka values(1,'Seattle')
+insert into city_Luka values(2,'Green Bay')
 
-insert into PeopleLuka values(1,'Aaron Rodgers',1)
-insert into PeopleLuka values(2,'Russell Wilson',2)
-insert into PeopleLuka values(3,'Jody Nelson',2)
+insert into people_Luka values(1,'Aaron Rodgers',1)
+insert into people_Luka values(2,'Russell Wilson',2)
+insert into people_Luka values(3,'Jody Nelson',2)
 
-if exists(select id from PeopleLuka where city = (select id from CityLuka where city = 'Seatle'))
+if exists(select id from PeopleLuka WHERE city = (select id from city_Luka WHERE city = 'Seatle'))
 begin
-insert into CityLuka values(3,'Madison')
+insert into city_Luka values(3,'Madison')
 update PeopleLuka
 set city = 'Madison'
-where id in (select id from PeopleLuka where city = (select id from CityLuka where city = 'Seatle'))
+WHERE id in (select id from PeopleLuka WHERE city = (select id from city_Luka WHERE city = 'Seatle'))
 end
-delete from CityLuka where city = 'Seattle'
+delete from city_Luka WHERE city = 'Seattle'
 
-CREATE VIEW PackersLuka
+CREATE VIEW Packers_Luka
 AS
-SELECT name FROM PeopleLuka WHERE city = 'Green Bay'
+SELECT name FROM people_Luka WHERE city = 'Green Bay'
 
-select * from PackersLuka
+select * from Packers_Luka
 commit
-DROP table PeopleLuka
-DROP table CityLuka
-DROP view PackersLuka
+DROP table peopleLuka
+DROP table city_Luka
+DROP view Packers_Luka
 
 -- 5
 
-ALTER PROC sp_birthday_employeeLuka
+ALTER PROC sp_birthday_employee_Luka
 AS
 BEGIN
 SELECT * INTO #EmployeeTemp
@@ -89,14 +89,7 @@ END
 
 
 
---6 USE EXCEPT KEYWORD
-
+--6
 SELECT * FROM Customers
 EXCEPT
 SELECT * FROM Customers
-
---7 SELECT firstName+' '+lastName from Person where middleName is null UNION SELECT firstName+' '+lastName+' '+middelName+'.' from Person where middleName is not null
-
---8 select top 1 marks from student where sex = 'F' order by marks desc
-
---9 select * from students order by sex,marks
