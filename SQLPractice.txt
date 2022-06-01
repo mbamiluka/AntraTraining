@@ -1,0 +1,64 @@
+1. What is index; types of indices; pros and cons
+  -Database object that is used to speed up reads and writes. Sort of like the idx in a textbook
+  -Clustered idx + Non-Clustered Idx
+  
+  -Pros: speed up reads and writes, optimize sorting
+  -Con: extra space is needed for non-clustered idx, slows down INSERT, UPDATE, DEL because we need to update multiple keys.
+  
+2. What's the difference between Primary key and Unique constraint?
+  -PK to uniquely identify records, UK to prevent duplicates
+  -Only one primary key per table, but can have multiple unique keys
+  -PK creates and uses Clustered Idx, UK creates non-clustered idx
+
+3. Tell me about check constraint
+  -It's used in specifying rules for columns in a table
+  -age>17, not NULL, UNIQUE
+
+4. Difference between temp table and table variable
+
+5. Difference between WHERE and HAVING
+  -WHERE is used in filtering non-aggregate columns, while HAVING is used in filtering aggregate cols
+6. Difference between RANK() and DenseRank() — value gap
+
+7. COUNT(*) vs. COUNT(colName)
+  -COUNT* counts all rows in a table, disregarding NULL. COUNT is the oppo.
+
+8. What's the difference between left join and inner join? JOIN and Subquery, which one has a
+
+better performance, why?
+
+9. What is correlated subquery
+  A subuery where the inner query depends in values from the outer query.
+
+10. What is a CTE, why do we need CTE?
+
+11. What does SQL Profiler do?
+  It chooses the best 
+  
+12. What is SQL injection, how to avoid SQL injection?
+
+13. Difference between SP and user defined function? When to use SP when to use function?
+
+14. Criteria of Union and Union all? Difference between UNION and UNION ALL
+
+15. Steps you take to improve SQL Queries
+
+16. concurrency problem in transaction
+
+17. what is deadlock, how to prevent
+
+18. what is normalization, 1NF - BCNF, benefits using normalization
+
+19. what are the system defined databases?
+  SystemDB
+20. composite key
+
+21. candidate key
+
+22. DDL vs. DML
+
+23. ACID property
+
+24. table scan vs. index scan
+
+25. Difference between Union and JOIN
