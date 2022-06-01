@@ -2,7 +2,7 @@
   Generics solves the problem of having to use loosely typed objects
   
 2. How would you create a list of strings, using the generic List class?
-
+Accept the list of string as a generic type.
 
 3. How many generic type parameters does the Dictionary class have?
 Dictionary has two parameter generic types; one for the key, another for the value.
@@ -17,12 +17,13 @@ The insert() method.
 removeAt() and remove()
 
 7. How do you indicate that a class has a generic type parameter?
-
+  A generic type will have a type parameter in an angle brackets after a type name(T)
 
 8. True/False. Generic classes can only have one generic type parameter.
-
+False
 
 9. True/False. Generic type constraints limit what can be used for the generic type.
-
+True
 
 10. True/False. Constraints let you use the methods of the thing you are constraining to.
+False
